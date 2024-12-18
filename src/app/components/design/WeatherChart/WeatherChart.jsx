@@ -3,6 +3,7 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
+import "./WeatherChart.css";
 
 ChartJS.register(
   Title,

@@ -1,6 +1,7 @@
 // src/app/components/functional/WeatherTable/WeatherTable.jsx
 import React from 'react';
 import { FaSun, FaCloud, FaCloudRain, FaSnowflake, FaMoon } from 'react-icons/fa';
+import './WeatherTable.css';
 
 const weatherIcons = {
   clear: <FaSun />,

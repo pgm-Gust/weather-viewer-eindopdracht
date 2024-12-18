@@ -1,4 +1,5 @@
 import React from 'react';
+import "./FavoriteCities.css";
 
 function FavoriteCities({ favorites, onFavoriteClick, onRemoveFavorite }) {
   return (

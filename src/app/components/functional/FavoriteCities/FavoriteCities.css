@@ -1,0 +1,14 @@
+ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  ul li button {
+    background-color: #1e88e5; /* Blauw voor navigatieknoppen */
+  }
+  
+  ul li button:hover {
+    background-color: #1565c0;
+  }
+  
