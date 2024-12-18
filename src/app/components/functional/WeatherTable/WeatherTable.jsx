@@ -13,16 +13,20 @@ const weatherIcons = {
 };
 
 const WeatherTable = ({ weatherData }) => {
-  // We controleren of weatherData beschikbaar is voordat we proberen te renderen
   if (!weatherData || !weatherData.time) {
     return <p>Geen weerdata beschikbaar</p>;
   }
+
+  const getDayOfWeek = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('nl-NL', { weekday: 'long' }).replace(/^\w/, c => c.toUpperCase());
+  };
 
   return (
     <table>
       <thead>
         <tr>
-          <th>Datum</th>
+          <th>Dag</th>
           <th>Max Temp (°C)</th>
           <th>Min Temp (°C)</th>
           <th>Weer</th>
@@ -43,7 +47,7 @@ const WeatherTable = ({ weatherData }) => {
 
           return (
             <tr key={index}>
-              <td>{date}</td>
+              <td>{getDayOfWeek(date)}</td>
               <td>{weatherData.temperature_2m_max ? weatherData.temperature_2m_max[index] : 'N/A'}°C</td>
               <td>{weatherData.temperature_2m_min ? weatherData.temperature_2m_min[index] : 'N/A'}°C</td>
               <td>{weatherIcon}</td>

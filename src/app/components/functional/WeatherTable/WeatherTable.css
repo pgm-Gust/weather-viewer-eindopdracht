@@ -1,4 +1,52 @@
 table {
   width: 100%;
-  margin-top: 20px;
+  margin-bottom: 2rem;
+}
+
+th {
+  padding: 12px;
+  text-align: left;
+  background-color: #1a1a1a;
+  font-size: 1.1rem;
+  border-bottom: 2px solid #444;
+}
+
+td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #444;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+tr:hover {
+  background-color: #3a3f47;
+}
+
+td svg {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  vertical-align: middle;
+  color: #fff;
+}
+
+td:empty {
+  color: #888;
+}
+
+@media (max-width: 768px) {
+  table {
+    font-size: 0.9rem;
+    margin: 0 10px;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  td svg {
+    width: 25px;
+    height: 25px;
+  }
 }

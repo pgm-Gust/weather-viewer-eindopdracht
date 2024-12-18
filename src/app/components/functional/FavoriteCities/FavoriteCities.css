@@ -1,14 +1,70 @@
-ul li {
+/* Algemene stijl voor de lijst met favorieten */
+ul {
+    list-style: none; /* Verwijder de standaard opsommingstekens */
+    padding: 0;
+    margin: 0;
+  }
+  
+  li {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Zorgt ervoor dat de stad en de knop aan weerszijden staan */
     align-items: center;
+    background-color: #2c2f38; /* Donkere achtergrond voor de lijstitems */
+    padding: 12px 16px;
+    margin: 8px 0;
+    border-radius: 8px; /* Ronde hoeken voor de lijstitems */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Schaduw voor diepte */
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease; /* Zachte overgangseffecten */
   }
   
-  ul li button {
-    background-color: #1e88e5; /* Blauw voor navigatieknoppen */
+  li:hover {
+    background-color: #3a3f47; /* Lichte hover kleur */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Schaduw wordt sterker bij hover */
   }
   
-  ul li button:hover {
-    background-color: #1565c0;
+  /* Styling voor de link naar de stad */
+  li a {
+    color: #1e90ff; /* Blauwe kleur voor de link */
+    text-decoration: none; /* Verwijder de onderstreping */
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  li a:hover {
+    color: #87cefa; /* Lichtere blauwe kleur bij hover */
+  }
+  
+  /* Styling voor de verwijderknop */
+ .btn-delete {
+    background-color: #ff6347; /* Tomaatkleur voor de verwijderknop */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border-radius: 5px; /* Ronde hoeken voor de knop */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+ .btn-delete:hover {
+    background-color: #ff4500; /* Donkerder oranje bij hover */
+  }
+  
+ .btn-delete:focus {
+    outline: none; /* Verwijder de standaard focusrand */
+  }
+  
+  /* Responsive styling voor mobiele apparaten */
+  @media (max-width: 768px) {
+    li {
+      font-size: 0.9rem; /* Kleinere tekst op kleinere schermen */
+      padding: 10px 14px;
+    }
+  
+    button {
+      padding: 6px 10px; /* Kleinere knoppen op kleinere schermen */
+    }
   }
   

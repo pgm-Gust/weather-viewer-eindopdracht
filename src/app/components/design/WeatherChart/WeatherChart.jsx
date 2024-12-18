@@ -1,9 +1,8 @@
-// src/app/components/functional/WeatherChart.jsx
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
-import "./WeatherChart.css";
+import './WeatherChart.css';
 
 ChartJS.register(
   Title,
@@ -53,7 +52,12 @@ const WeatherChart = ({ weatherData }) => {
     },
   };
 
-  return <Line data={chartData} options={options} />;
+  return (
+    <div className="weather-chart-container">
+      <h2>Weersvoorspelling</h2>
+      <Line data={chartData} options={options} />
+    </div>
+  );
 };
 
 export default WeatherChart;

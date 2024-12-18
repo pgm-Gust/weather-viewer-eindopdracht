@@ -1,16 +1,14 @@
-import React from 'react';
-import "./FavoriteCities.css";
+import { Link } from 'react-router-dom';
+import './FavoriteCities.css';
 
-function FavoriteCities({ favorites, onFavoriteClick, onRemoveFavorite }) {
+function FavoriteCities({ favorites, onRemoveFavorite }) {
   return (
     <div>
       <ul>
         {favorites.map((city, index) => (
           <li key={index}>
-            <button onClick={() => onFavoriteClick(city)}>{city}</button>
-            <button onClick={() => onRemoveFavorite(city)} style={{ marginLeft: '10px', color: 'red' }}>
-              Verwijder
-            </button>
+            <Link to={`/weather?city=${city}`}>{city}</Link>
+            <button class="btn-delete" onClick={() => onRemoveFavorite(city)}>Verwijder</button>
           </li>
         ))}
       </ul>
