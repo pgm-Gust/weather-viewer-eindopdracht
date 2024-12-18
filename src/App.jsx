@@ -4,6 +4,7 @@ import WeatherTable from '@functional/WeatherTable/WeatherTable';
 import WeatherChart from '@design/WeatherChart/WeatherChart';
 import Geolocation from '@functional/Geolocation/Geolocation';
 import FavoriteCities from '@functional/FavoriteCities/FavoriteCities';
+import SearchHistory from '@functional/SearchHistory/SearchHistory';
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -15,6 +16,7 @@ function App() {
     const savedFavorites = localStorage.getItem('favorites');
     return savedFavorites ? JSON.parse(savedFavorites) : [];
   });
+  const [searchHistory, setSearchHistory] = useState([]);
 
   const handleCityChange = (e) => setCity(e.target.value);
 
@@ -33,43 +35,35 @@ function App() {
   };
 
   const handleFavoriteClick = async (favoriteCity) => {
-    setCity(favoriteCity); // Update de zoekbalk
+    setCity(favoriteCity);
+    fetchCoordinates(favoriteCity);
+  };
+
+  const fetchCoordinates = async (cityName) => {
+    const cityToSearch = cityName || city;
+    if (!cityToSearch) return;
     setLoading(true);
     setError(null);
-
     try {
-      const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${favoriteCity}&language=en&count=1`);
+      const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${cityToSearch}&language=en&count=1`);
       const data = await response.json();
       if (data.results && data.results.length > 0) {
         const { latitude, longitude } = data.results[0];
         setCoordinates({ latitude, longitude });
+        addToSearchHistory(cityToSearch);
       } else {
         setError('Stad niet gevonden.');
       }
     } catch (error) {
       setError('Er is een fout opgetreden.');
     }
-
     setLoading(false);
   };
 
-  const fetchCoordinates = async () => {
-    if (!city) return;
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&language=en&count=1`);
-      const data = await response.json();
-      if (data.results && data.results.length > 0) {
-        const { latitude, longitude } = data.results[0];
-        setCoordinates({ latitude, longitude });
-      } else {
-        setError('Stad niet gevonden.');
-      }
-    } catch (error) {
-      setError('Er is een fout opgetreden.');
+  const addToSearchHistory = (city) => {
+    if (!searchHistory.includes(city)) {
+      setSearchHistory((prevHistory) => [city, ...prevHistory].slice(0, 5)); // Maximaal 5 steden
     }
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -94,25 +88,52 @@ function App() {
 
   return (
     <div className="App">
-      <Geolocation setCoordinates={setCoordinates} />
-      <input type="text" value={city} onChange={handleCityChange} placeholder="Voer een stad in" />
-      <button onClick={fetchCoordinates} disabled={loading}>Zoek Stad</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <div className="header">
+        <Geolocation setCoordinates={setCoordinates} />
+        <div className="search-bar">
+          <input
+            type="text"
+            value={city}
+            onChange={handleCityChange}
+            placeholder="Voer een stad in"
+          />
+          <button onClick={() => fetchCoordinates(city)} disabled={loading}>
+            Zoek Stad
+          </button>
+        </div>
+        {city && !favorites.includes(city) && (
+          <button className="add-favorite" onClick={() => addCityToFavorites(city)}>
+            Voeg {city} toe aan favorieten
+          </button>
+        )}
+      </div>
+      {error && <p className="error">{error}</p>}
 
-      {/* Voeg knop toe om huidige stad aan favorieten toe te voegen */}
-      {city && !favorites.includes(city) && (
-        <button onClick={() => addCityToFavorites(city)}>Voeg {city} toe aan favorieten</button>
-      )}
-
-      {weatherData && <WeatherChart weatherData={weatherData} />}
-      {weatherData && <WeatherTable weatherData={weatherData} city={city} />}
-      
-      <h3>Favorieten</h3>
-      <FavoriteCities
-        favorites={favorites}
-        onFavoriteClick={handleFavoriteClick}
-        onRemoveFavorite={removeCityFromFavorites}
-      />
+      <div className="main-content">
+        {weatherData && (
+          <div className="weather-section">
+            <WeatherChart weatherData={weatherData} />
+            <WeatherTable weatherData={weatherData} city={city} />
+          </div>
+        )}
+        <div className="sidebar">
+          <div className="favorites">
+            <h3>Favorieten</h3>
+            <FavoriteCities
+              favorites={favorites}
+              onFavoriteClick={handleFavoriteClick}
+              onRemoveFavorite={removeCityFromFavorites}
+            />
+          </div>
+          <div className="search-history">
+            <h3>Zoekgeschiedenis</h3>
+            <SearchHistory
+              searchHistory={searchHistory}
+              onCitySelect={handleFavoriteClick}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

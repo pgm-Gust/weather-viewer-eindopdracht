@@ -1,160 +1,85 @@
-/* Algemene styling */
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #121212; /* Donkere achtergrond */
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
   margin: 0;
   padding: 0;
-  color: #e0e0e0; /* Zachte witte tekstkleur */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Zorgt ervoor dat de pagina minimaal de hoogte van het scherm gebruikt */
 }
 
 .App {
-  text-align: center;
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centreert de inhoud ook verticaal */
+  width: 100%;
+  max-width: 1200px; /* Beperkt de breedte van de inhoud */
+  padding: 1rem;
+  box-sizing: border-box; /* Inclusief padding in de breedte */
 }
 
-h1 {
-  font-size: 2.5rem;
-  color: #ffffff; /* Heldere titel */
-  margin-bottom: 20px;
-  border-bottom: 2px solid #1e88e5;
-  display: inline-block;
-  padding-bottom: 5px;
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.search-bar {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.add-favorite {
+  background-color: #1976d2;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-favorite:hover {
+  background-color: #1565c0;
+}
+
+.error {
+  color: red;
+  margin: 1rem 0;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px; /* Houdt de inhoud gecentreerd */
+  margin: 0 auto; /* Zorgt ervoor dat het in het midden blijft op de pagina */
+}
+
+.weather-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.favorites,
+.search-history {
+  background-color: #1e1e1e;
+  padding: 1rem;
+  border-radius: 8px;
 }
 
 h3 {
-  color: #eeeeee;
-  margin: 20px 0;
-  font-size: 1.5rem;
-}
-
-/* Input en knoppen */
-input[type="text"] {
-  padding: 12px;
-  width: 300px;
-  border: 2px solid #424242; /* Donkere rand */
-  border-radius: 5px;
-  font-size: 1rem;
-  background-color: #212121; /* Donkere invoerveld */
-  color: #ffffff;
-  margin-bottom: 10px;
-}
-
-input[type="text"]::placeholder {
-  color: #9e9e9e; /* Lichtere placeholder tekst */
-}
-
-button {
-  padding: 12px 24px;
-  font-size: 1rem;
-  background-color: #1e88e5; /* Blauw knop */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 5px;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #1565c0; /* Donkerder blauw */
-}
-
-button:disabled {
-  background-color: #424242;
-  cursor: not-allowed;
-}
-
-/* Error bericht */
-p {
-  font-size: 1rem;
-}
-
-p[style*='color: red'] {
-  color: #ff6f61; /* Zachter rood */
-  font-weight: bold;
-}
-
-/* Favorieten lijst */
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 20px 0;
-  max-width: 400px;
-  margin: 20px auto;
-}
-
-ul li {
-  margin: 10px 0;
-  padding: 12px 20px;
-  background-color: #1e1e1e; /* Donkere achtergrond voor favorieten */
-  border: 1px solid #424242;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-ul li button {
-  background-color: #e53935; /* Rood voor verwijderen */
-  font-size: 0.8rem;
-  padding: 6px 12px;
-  border: none;
-  margin-left: 10px;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-ul li button:hover {
-  background-color: #b71c1c; /* Donkerder rood */
-}
-
-/* Tabellen */
-table {
-  margin: 20px auto;
-  border-collapse: collapse;
-  width: 90%;
-  background-color: #1e1e1e; /* Donkere achtergrond voor tabel */
-  color: #e0e0e0;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-}
-
-table th, table td {
-  padding: 12px;
-  text-align: center;
-  border: 1px solid #424242; /* Randkleur */
-}
-
-table th {
-  background-color: #1e88e5; /* Blauw */
-  color: white;
-  font-weight: bold;
-}
-
-table tr:nth-child(even) {
-  background-color: #212121; /* Iets lichtere achtergrond voor afwisseling */
-}
-
-table tr:hover {
-  background-color: #333333; /* Hover effect */
-}
-
-/* Grafieken (wrapper) */
-.chart-container {
-  margin: 30px auto;
-  padding: 20px;
-  width: 80%;
-  background: #1e1e1e; /* Donker paneel */
-  border-radius: 10px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-}
-
-.chart-container canvas {
-  display: block;
-  max-width: 100%;
+  margin-top: 0;
 }
